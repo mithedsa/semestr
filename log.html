@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+  .reg_form h2{
+    text-align: center;
+    margin: 30px 0;
+  }
+
+  .reg_form a{
+    font-size: 1.2em;
+    transition: all .3s;
+    color: #5c5b5b;
+    text-decoration: none;
+    margin-left: 60px;
+  }
+
+  .reg_form a:hover{
+    margin-left: 55px;
+    transition: all .3s;
+  }
+</style>
+<div class="container reg_form">
+
+<form class="row justify-content-center" method="post" action="log.html">
+  <h2>Авторизация</h2>
+  <div class="w-100"></div>
+  <div class="mb-3 col-12 col-md-4">
+  <label for="formGroupExampleInput" class="form-label">Ваш логин</label>
+  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Введите Ваш логин...">
+</div>
+  <div class="w-100"></div>
+  <div class="mb-3 col-12 col-md-4">
+    <label for="exampleInputPassword1" class="form-label">Пароль</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="w-100"></div>
+  <div class="mb-3 col-12 col-md-4">
+    <button type="button" class="btn btn-secondary">Войти</button>
+    <a href="/registration">Зарегистрироваться</a>
+  </div>
+</form>
+</div>
+
+{% endblock %}

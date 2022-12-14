@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<section class="our-publication pt-100 pb-70" style="margin-top: 0px;">
+            <div class="container" >
+                <div class="section-header" >
+                    <h2 >Список товаров</h2>
+<!--                    <p>Сегодня действует скидка 20% на все игры! (Цена указана без скидок)/p>-->
+                </div>
+
+                <div class="row">
+
+    {% for product in products %}
+                    <div class="col-sm-6 col-lg-3">
+      <form method="post" action="/add">
+                        <div class="single-publication">
+                            <figure style="width:263px;">
+                                <a href="#">
+                                    <img src="{{ product.image }}" style="width: 100px; height: 100px;">
+                                </a>
+                                <ul>
+                                    <li><a href="#" title="В избранное"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="#" title="Сравнить"><i class="fa fa-refresh"></i></a></li>
+                                    <li><a href="#" title="См. больше"><i class="fa fa-search"></i></a></li>
+                                </ul>
+                            </figure>
+
+                            <div class="publication-content">
+                                <span class="category">{{ product.category }}</span>
+                                <h3><a href="#">{{ product.name }}</a></h3>
+                                <br>
+                                <br>
+                                <h4 class="price">$ {{ product.price }}</h4>
+                            </div>
+
+                            <div class="add-to-cart">
+        <input type="hidden" name="code" value="{{ product.code }}"/>
+        <input type="text" class="product-quantity" name="quantity" value="1" size="2" />
+        <input type="submit" value="В корзину" class="default-btn" />
+                            </div>
+                        </div>
+      </form>
+                    </div>
+                {% endfor %}
+
+                </div>
+            </div>
+        </section>
+
+
+<style>
+.pt-100 {
+                padding-top: 100px;
+            }
+            .pb-70 {
+                padding-bottom: 70px;
+            }
+            .section-header {
+                margin-bottom: 60px;
+                text-align: center;
+            }
+            .section-header i {
+                color: #f47a60;
+                font-size: 50px;
+                display: inline-block;
+                margin-bottom: 10px;
+            }
+            .section-header h2 {
+                font-weight: bold;
+                font-size: 34px;
+                margin: 0;
+            }
+            .section-header p {
+                max-width: 500px;
+                margin: 20px auto 0;
+            }
+            .single-publication {
+                border: 1px solid #f2eee2;
+                margin-bottom: 30px;
+                position: relative;
+                overflow: hidden;
+            }
+            .single-publication figure {
+                position: relative;
+                margin: 0;
+                text-align: center;
+            }
+            .single-publication figure > a {
+                background-color: #fafafa;
+                display: block;
+            }
+            .single-publication figure ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                position: absolute;
+                right: -50px;
+                top: 20px;
+                transition: .6s;
+                -webkit-transition: .6s;
+            }
+            .single-publication:hover figure ul {
+                right: 15px;
+            }
+            .single-publication figure ul li a {
+                display: inline-block;
+                width: 35px;
+                height: 35px;
+                text-align: center;
+                font-size: 15px;
+                background: #f47a60;
+                margin-bottom: 7px;
+                border-radius: 50%;
+                line-height: 35px;
+                color: #fff;
+            }
+            .single-publication figure ul li a:hover {
+                color: #fff;
+                background: #f47a60;
+            }
+            .single-publication .publication-content {
+                text-align: center;
+                padding: 20px;
+            }
+            .single-publication .publication-content .category {
+                display: inline-block;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                color: #f47a60;
+                font-weight: 600;
+            }
+            .single-publication .publication-content h3 {
+                font-weight: 600;
+                margin: 8px 0 10px;
+                font-size: 20px;
+            }
+            .single-publication .publication-content h3 a {
+                color: #316879;
+            }
+            .single-publication .publication-content h3 a:hover {
+                color: #f47a60;
+            }
+            .single-publication .publication-content ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                margin-bottom: 15px;
+            }
+            .single-publication .publication-content ul li {
+                display: inline-block;
+                font-size: 18px;
+                color: #7fe7dc;
+            }
+            .single-publication .publication-content .price {
+                font-size: 18px;
+                color: #f47a60;
+            }
+            .single-publication .publication-content .price span {
+                color: #ced7d8;
+                text-decoration: line-through;
+                padding-left: 5px;
+                font-weight: 300;
+            }
+            .single-publication .add-to-cart {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: #fff;
+                opacity: 0;
+                visibility: hidden;
+                text-align: center;
+                -webkit-transform: scale(.7);
+                transform: scale(.7);
+                height: 90px;
+                -moz-transition: .4s;
+                -webkit-transition: .4s;
+                transition: .4s;
+            }
+            .single-publication:hover .add-to-cart {
+                visibility: visible;
+                transform: scale(1);
+                -webkit-transform: scale(1);
+                opacity: 1;
+            }
+            .single-publication .add-to-cart .default-btn {
+                margin-top: 28px;
+                padding: 8px 25px;
+                font-size: 14px;
+            }
+            .single-publication .category {
+                margin: 0;
+            }
+            .single-publication .add-to-cart .default-btn {
+                margin-top: 28px;
+                padding: 8px 25px;
+                font-size: 14px;
+            }
+            .default-btn {
+                background-color: #f47a60;
+                color: #fff;
+                border: 1px solid #f47a60;
+                display: inline-block;
+                padding: 10px 30px;
+                border-radius: 30px;
+                text-transform: uppercase;
+                font-weight: 600;
+                font-family: 'Open Sans', sans-serif;
+            }
+            .default-btn:hover {
+                color: #fff;
+                text-decoration: none;
+            }
+</style>
+{% endblock %}

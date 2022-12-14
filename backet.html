@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container">
+    <div class="row">
+  <p><h2>Здесь будут Ваши добавленные товары</h2></p>
+
+   <div class="col-sm-12">
+        <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+        </div>
+  {% if 'cart_item' in session %}
+   <p><a id="btnEmpty" href="{{ url_for('.empty_cart') }}" class="btn btn-danger" style="background: #cc3333">Удалить корзину</a></p>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Товары</th>
+                        <th>Количество</th>
+                        <th class="text-center">Цена за 1шт.</th>
+                        <th class="text-center">Цена</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+    {% for key, val in session['cart_item'].items() %}
+        {% set quantity = session['cart_item'][key]['quantity'] %}
+        {% set price = session['cart_item'][key]['price'] %}
+        {% set item_price = session['cart_item'][key]['total_price'] %}
+
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ session['cart_item'][key]['image'] }}" style="width: 72px; height: 72px;"> </a>
+                            <div class="media-body" style="padding-left:10px;">
+                                <h4 class="media-heading"> <a href="#">{{ session['cart_item'][key]['name'] }}</a></h4>
+                                <span>Статус: </span><span class="text-success"><strong>В наличии</strong></span>
+                            </div>
+                        </div></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                        <input type="text" class="form-control" value="{{ quantity }}" readonly="readonly">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ price }} </strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ item_price }} </strong></td>
+                        <td class="col-sm-1 col-md-1">
+                        <a href="{{ url_for('.delete_product', code=session['cart_item'][key]['code']) }}" class="btn btn-danger" style="background: #cc3333">
+                            <span class="glyphicon glyphicon-remove" ></span> Удалить
+                        </a></td>
+                    </tr>
+    {% endfor %}
+                    <tr>
+                        <td colspan="4"><h5>Всего кол-во</h5></td>
+                        <td class="text-right"><h5><strong>{{ session['all_total_quantity'] }}</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><h3>Итого</h3></td>
+                        <td colspan="2" class="text-right"><h3><strong>$ {{ session['all_total_price'] }}</strong></h3></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span>
+                        </button></td>
+                        <td>
+                        <button type="button" class="btn btn-success" style="background: #009900">
+                            Оформить <span class="glyphicon glyphicon-play"></span>
+                        </button></td>
+                    </tr>
+                </tbody>
+            </table>
+  {% else: %}
+   <div class="no-records">Ваша корзина пустая</div>
+  {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
